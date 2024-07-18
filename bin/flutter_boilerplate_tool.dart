@@ -11,6 +11,8 @@ import 'package:flutter_boilerplate_tool/project.dart';
 import 'package:flutter_boilerplate_tool/theme_colors.dart';
 
 void main(List<String> arguments) {
+  // I created this code in only 2-3 hours. So, I didn't add any error handling yet. Also the code is not refactored.
+  // I have tested it is working fine. But if you find any issue, please let me know.
   final parser = ArgParser()
     ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage');
 
@@ -36,7 +38,7 @@ void main(List<String> arguments) {
 
   print('\n============ Light Theme ===========');
   print(
-      '\nNote: Use hex color code without # \n like (eeeeee, ffffff, 000000)\n');
+      '\nNote: Use hex color code without # \nlike (eeeeee, ffffff, 000000)\n');
   stdout.write('LightPrimaryColor: ');
   final lightPrimaryColor = stdin.readLineSync();
   stdout.write('LightPrimaryVariantColor: ');
