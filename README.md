@@ -12,6 +12,12 @@ To install the `flutter_boilerplate_tool` globally, use the following command:
 dart pub global activate flutter_boilerplate_tool
 ```
 
+or
+
+```
+dart pub add flutter_boilerplate_tool
+```
+
 ## Usage
 
 To run the tool, navigate to your Flutter project directory and use:

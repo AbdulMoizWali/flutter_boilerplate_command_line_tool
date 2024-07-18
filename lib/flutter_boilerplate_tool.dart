@@ -170,7 +170,7 @@ String generateMainFile(String importPackage, String currentTheme) {
     }
 
     class MyApp extends StatelessWidget {
-      const MyApp({Key? key}) : super(key: key);
+      const MyApp({super.key});
 
       @override
       Widget build(BuildContext context) {
@@ -197,9 +197,7 @@ String generateGapFile() {
 String generateRoutePathFile(Project project) {
   String screens = project.screens
       .map((screen) {
-        return '''
-    static const String ${screen.toLowerCase()} = '/${screen.toLowerCase()}';
-    ''';
+        return 'static const String ${screen.toLowerCase()} = \'/${screen.toLowerCase()}\';';
       })
       .toList()
       .join('\n');
@@ -240,7 +238,7 @@ String generateRouteGeneratorFile(Project project) {
     }
 
     class NotFoundScreen extends StatelessWidget {
-      const NotFoundScreen({Key? key}) : super(key: key);
+      const NotFoundScreen({super.key});
 
       @override
       Widget build(BuildContext context) {
