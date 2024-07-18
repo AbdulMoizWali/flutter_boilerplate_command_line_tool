@@ -1,6 +1,6 @@
-// ignore_for_file: annotate_overrides, overridden_fields
+part of 'project.dart';
 
-abstract class ThemeColors {
+abstract class _ThemeColors {
   final String primaryColor;
   final String primaryVariantColor;
   final String textColor;
@@ -9,7 +9,7 @@ abstract class ThemeColors {
   String red = 'c42b1c';
   String green = '1dbf73';
 
-  ThemeColors({
+  _ThemeColors({
     required this.primaryColor,
     required this.primaryVariantColor,
     required this.textColor,
@@ -20,7 +20,9 @@ abstract class ThemeColors {
   });
 }
 
-class LightThemeColors extends ThemeColors {
+/// Light theme colors
+class LightThemeColors extends _ThemeColors {
+  /// Light theme colors constructor
   LightThemeColors({
     required super.primaryColor,
     required super.primaryVariantColor,
@@ -28,7 +30,9 @@ class LightThemeColors extends ThemeColors {
   });
 }
 
-class DarkThemeColors extends ThemeColors {
+/// Dark theme colors
+class DarkThemeColors extends _ThemeColors {
+  /// Dark theme colors constructor
   DarkThemeColors({
     required super.primaryColor,
     required super.primaryVariantColor,

@@ -11,13 +11,16 @@
 # (the recommended set includes the core lints).
 # The core lints are also what is used by pub.dev for scoring packages.
 
+analyzer:
+  errors:
+    unused_element: ignore
 include: package:lints/recommended.yaml
 
 # Uncomment the following section to specify additional rules.
 
-# linter:
-#   rules:
-#     - camel_case_types
+linter:
+  rules:
+    - public_member_api_docs
 
 # analyzer:
 #   exclude:

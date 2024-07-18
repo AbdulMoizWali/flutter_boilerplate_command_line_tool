@@ -1,8 +1,68 @@
-import 'package:flutter_boilerplate_tool/project.dart';
-import 'package:flutter_boilerplate_tool/theme_colors.dart';
+import 'dart:io';
 
-int calculate() {
-  return 6 * 7;
+import 'package:flutter_boilerplate_tool/project.dart';
+
+/// Create boilerplate code for the given [project].
+void createBoilerplateCode(
+  Project project,
+) {
+  final directoryStructure = {
+    'lib/theme': ['theme_colors.dart', 'theme_builder.dart'],
+    'lib/helpers': ['gap.dart'],
+    'lib/routes': ['route_path.dart', 'route_generator.dart'],
+    'lib/screens': project.screens
+        .map((screen) => '${screen.toLowerCase()}_screen.dart')
+        .toList(),
+    'lib': ['main.dart']
+  };
+
+  directoryStructure.forEach((directory, files) {
+    Directory(directory).createSync(recursive: true);
+    for (var file in files) {
+      File('$directory/$file').writeAsStringSync(
+        getFileContent(
+          file,
+          project,
+        ),
+      );
+    }
+  });
+}
+
+/// Get the file content for the given [fileName] and [project].
+String getFileContent(
+  String fileName,
+  Project project,
+) {
+  if (fileName == 'theme_colors.dart') {
+    return generateThemeColorsFile(
+      project.lightThemeColors,
+      project.darkThemeColors,
+    );
+  } else if (fileName == 'theme_builder.dart') {
+    return generateThemeBuilderFile(
+      project.projectImportName,
+    );
+  } else if (fileName == 'gap.dart') {
+    return generateGapFile();
+  } else if (fileName == 'route_path.dart') {
+    return generateRoutePathFile(project);
+  } else if (fileName == 'route_generator.dart') {
+    return generateRouteGeneratorFile(
+      project,
+    );
+  } else if (fileName == 'main.dart') {
+    return generateMainFile(
+      project.projectImportName,
+      project.currentTheme,
+    );
+  } else if (fileName.endsWith('_screen.dart')) {
+    return generateScreenFile(
+      fileName,
+    );
+  } else {
+    return '';
+  }
 }
 
 /// Generate the screen file with the given [filename] like 'home_screen.dart' or 'login_screen.dart'. Return 'HomeScreen' or 'LoginScreen'.
@@ -16,6 +76,7 @@ String getScreenNameFromScreen(String screen) {
   return "${screen.split('_').map((str) => str[0].toUpperCase() + str.substring(1)).join('')}Screen";
 }
 
+/// Generate the theme colors file with the given [lightThemeColors] and [darkThemeColors].
 String generateThemeColorsFile(
   LightThemeColors lightThemeColors,
   DarkThemeColors darkThemeColors,
@@ -81,6 +142,7 @@ String generateThemeColorsFile(
     ''';
 }
 
+/// Generate the theme builder file with the given [projectImportName].
 String generateThemeBuilderFile(String projectImportName) {
   return '''
     import 'package:flutter/material.dart';
@@ -159,6 +221,7 @@ String generateThemeBuilderFile(String projectImportName) {
     ''';
 }
 
+/// Generate the main file with the given [importPackage] and [currentTheme].
 String generateMainFile(String importPackage, String currentTheme) {
   return '''
     import 'package:flutter/material.dart';
@@ -184,6 +247,7 @@ String generateMainFile(String importPackage, String currentTheme) {
     ''';
 }
 
+/// Generate the gap file.
 String generateGapFile() {
   return '''
     import 'package:flutter/material.dart';
@@ -194,6 +258,7 @@ String generateGapFile() {
     ''';
 }
 
+/// Generate the route path file with the given [project].
 String generateRoutePathFile(Project project) {
   String screens = project.screens
       .map((screen) {
@@ -208,6 +273,7 @@ String generateRoutePathFile(Project project) {
     ''';
 }
 
+/// Generate the route generator file with the given [project].
 String generateRouteGeneratorFile(Project project) {
   String projectImportName = project.projectImportName;
   List<String> screens = project.screens;
@@ -252,6 +318,7 @@ String generateRouteGeneratorFile(Project project) {
     ''';
 }
 
+/// Generate the screen file with the given [fileName].
 String generateScreenFile(String fileName) {
   final screenName = getScreenNameFromFilename(fileName);
 

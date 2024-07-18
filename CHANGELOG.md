@@ -4,4 +4,10 @@
 
 ## 1.0.1
 
-- Tempalte updated
+- Template updated
+
+## 1.0.2
+
+- Documentation updated
+- Bug fixes
+- Refactor code
